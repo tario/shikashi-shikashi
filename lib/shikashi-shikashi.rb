@@ -21,7 +21,9 @@ along with shikashi-shikashi.  if not, see <http://www.gnu.org/licenses/>.
 module Shikashi
   class Privileges
     def allow_shikashi
-
+      object(Shikashi::Sandbox).allow(:new)
+      object(Shikashi::Privileges).allow(:new)
+      instances_of(Shikashi::Privileges).allow_all
     end
   end
 end
