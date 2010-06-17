@@ -19,9 +19,14 @@ along with shikashi-shikashi.  if not, see <http://www.gnu.org/licenses/>.
 
 =end
 module Shikashi
-  class RunMethodWrapper < Shikashi::Sandbox::SandboxWrapper
-    def call(privileges, code = "")
-      eval(code, sandbox.eval_binding, sandbox.instance_eval{ generate_id }, 0 )
+  class RunMethodWrapper < Shikashi::Sandbox::MethodWrapper
+    def call(privileges_, code = "")
+      new_id = sandbox.generate_id
+      bd = sandbox.eval_binding
+      sandbox.privileges[new_id] = privileges_
+      rehook do
+        eval(code, bd, new_id, 0 )
+      end
     end
   end
 end
