@@ -18,12 +18,14 @@ you should have received a copy of the gnu general public license
 along with shikashi-shikashi.  if not, see <http://www.gnu.org/licenses/>.
 
 =end
-module Shikashi
+require "shikashi-shikashi/sub_privileges"
+
+module ShikashiShikashi
   class RunMethodWrapper < Shikashi::Sandbox::MethodWrapper
     def call(privileges_, code = "")
       new_id = sandbox.generate_id
       bd = sandbox.eval_binding
-      sandbox.privileges[new_id] = privileges_
+      sandbox.privileges[new_id] = ShikashiShikashi::SubPrivileges.new( privileges_, privileges )
       rehook do
         eval(code, bd, new_id, 0 )
       end

@@ -18,17 +18,31 @@ you should have received a copy of the gnu general public license
 along with shikashi-shikashi.  if not, see <http://www.gnu.org/licenses/>.
 
 =end
-require "shikashi-shikashi/run_method_wrapper"
+module ShikashiShikashi
+  class SubPrivileges < Shikashi::Privileges
+    def initialize( sub_privileges, super_privileges)
+      @sub_privileges = @sub_privileges
+      @super_privileges = @super_privileges
+    end
 
-module Shikashi
-  class Privileges
-    def allow_shikashi
-      object(Shikashi::Sandbox).allow(:new)
-      object(Shikashi::Privileges).allow(:new)
-      instances_of(Shikashi::Privileges).allow_all
-      instances_of(Shikashi::Sandbox).redirect :run, ShikashiShikashi::RunMethodWrapper
-      instances_of(Shikashi::Sandbox).allow :run
-      instances_of(Shikashi::Privileges::AllowedMethods).allow :allow_all, :allow
+    def handle_redirection(*args)
+      # TODO: emulation of redirections
+      nil
+    end
+#
+# Implementation of allow that ask to the super and sub privileges (both must be true)
+#
+    def allow?(*args)
+      # ask first to the super_privileges allows the call
+      unless @super_privileges.allow?(*args)
+        return false
+      end
+
+      unless @sub_privileges.allow?(*args)
+        return false
+      end
+
+      return true
     end
   end
 end
