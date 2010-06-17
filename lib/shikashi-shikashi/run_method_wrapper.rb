@@ -25,7 +25,10 @@ module ShikashiShikashi
     def call(privileges_, code = "")
       new_id = sandbox.generate_id
       bd = sandbox.eval_binding
-      sandbox.privileges[new_id] = ShikashiShikashi::SubPrivileges.new( privileges_, privileges )
+      sandbox.privileges[new_id] = privileges_
+
+      sandbox.add_source_chain source, new_id
+
       rehook do
         eval(code, bd, new_id, 0 )
       end
