@@ -21,8 +21,8 @@ along with shikashi-shikashi.  if not, see <http://www.gnu.org/licenses/>.
 module ShikashiShikashi
   class SubPrivileges < Shikashi::Privileges
     def initialize( sub_privileges, super_privileges)
-      @sub_privileges = @sub_privileges
-      @super_privileges = @super_privileges
+      @sub_privileges = sub_privileges
+      @super_privileges = super_privileges
     end
 
     def handle_redirection(*args)
