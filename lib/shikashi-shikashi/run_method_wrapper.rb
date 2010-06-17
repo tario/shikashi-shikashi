@@ -18,15 +18,10 @@ you should have received a copy of the gnu general public license
 along with shikashi-shikashi.  if not, see <http://www.gnu.org/licenses/>.
 
 =end
-require "shikashi-shikashi/run_method_wrapper"
-
 module Shikashi
-  class Privileges
-    def allow_shikashi
-      object(Shikashi::Sandbox).allow(:new)
-      object(Shikashi::Privileges).allow(:new)
-      instances_of(Shikashi::Privileges).allow_all
-      instances_of(Shikashi::Sandbox).redirect :run, RunMethodWrapper
+  class RunMethodWrapper < Shikashi::Sandbox::SandboxWrapper
+    def call(*args)
+      print "RUN WRAPPER!!!\n"
     end
   end
 end
