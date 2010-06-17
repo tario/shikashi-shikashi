@@ -20,8 +20,8 @@ along with shikashi-shikashi.  if not, see <http://www.gnu.org/licenses/>.
 =end
 module Shikashi
   class RunMethodWrapper < Shikashi::Sandbox::SandboxWrapper
-    def call(*args)
-      print "RUN WRAPPER!!!\n"
+    def call(privileges, code = "")
+      eval(code, sandbox.eval_binding, sandbox.instance_eval{ generate_id }, 0 )
     end
   end
 end
