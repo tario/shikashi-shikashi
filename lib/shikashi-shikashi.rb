@@ -28,6 +28,7 @@ module Shikashi
       instances_of(Shikashi::Privileges).allow_all
       instances_of(Shikashi::Sandbox).redirect :run, RunMethodWrapper
       instances_of(Shikashi::Sandbox).allow :run
+      instances_of(Shikashi::Privileges::AllowedMethods).allow :allow_all, :allow
     end
   end
 end
