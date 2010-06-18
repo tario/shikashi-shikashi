@@ -18,8 +18,6 @@ you should have received a copy of the gnu general public license
 along with shikashi-shikashi.  if not, see <http://www.gnu.org/licenses/>.
 
 =end
-require "shikashi-shikashi/sub_privileges"
-
 module ShikashiShikashi
   class RunMethodWrapper < Shikashi::Sandbox::MethodWrapper
     def call(privileges_, code = "")
