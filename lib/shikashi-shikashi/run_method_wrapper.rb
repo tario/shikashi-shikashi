@@ -20,11 +20,13 @@ along with shikashi-shikashi.  if not, see <http://www.gnu.org/licenses/>.
 =end
 module ShikashiShikashi
   class RunMethodWrapper < Shikashi::Sandbox::MethodWrapper
-    def call(privileges_, code = "")
-      new_id = sandbox.generate_id
-      bd = sandbox.eval_binding
-      sandbox.privileges[new_id] = privileges_
+    def call(*args)
+      privileges_ = args.pick(Privileges,:privileges) do Privileges.new end
+      code = args.pick(String,:code)
+      bd = args.pick(Binding,:binding) do Shikashi.global_binding end
+      new_id = args.pick(:source) do sandbox.generate_id end
 
+      sandbox.privileges[new_id] = privileges_
       sandbox.add_source_chain source, new_id
 
       rehook do
