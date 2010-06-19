@@ -82,11 +82,5 @@ the same permissions too
 			print \"security error\\n\"
 		end
 
-		class X
-			def foo
-				print \"inside foo\\n\"
-			end
-		end
-
 	", privileges
 
