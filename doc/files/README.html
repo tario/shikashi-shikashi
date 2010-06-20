@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Sat Jun 19 23:34:35 -0300 2010</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1><a href="../classes/Shikashi.html">Shikashi</a>-shikashi - permissions package to use shikashi inside shikashi sandbox</h1>
+<p>
+<a href="../classes/Shikashi.html">Shikashi</a>-shikashi provides the
+permissions needed to use the shikashi sandbox API from within the sandbox.
+</p>
+<p>
+Actually shikashi sandbox do not supports the creation and execution of
+nested sandbox in the conventional way. Because of this shikashi-shikashi
+implements an emulation of the sandbox.
+</p>
+<h2>Installation</h2>
+<h3>Prerequisites</h3>
+<ul>
+<li>shikashi &gt;= 0.1.0 (found at <a
+href="http://github.com/tario/shikashi">github.com/tario/shikashi</a>)
+
+</li>
+</ul>
+<h3>Gem installation</h3>
+<ul>
+<li>Download the last version of the gem from <a
+href="http://github.com/tario/shikashi-shikashi/downloads">github.com/tario/shikashi-shikashi/downloads</a>
+
+</li>
+<li>Install the gem with the following;
+
+</li>
+</ul>
+<p>
+gem install shikashi-shikashi-X.X.X.gem.
+</p>
+<h2>Documentation</h2>
+<p>
+Full API documentation can be found on: <a
+href="http://tario.github.com/shikashi-shikashi/doc">tario.github.com/shikashi-shikashi/doc</a>/
+</p>
+<h2>Usage</h2>
+<p>
+It&#8216;s very simple, shikashi-shikashi adds an
+&quot;allow_shikashi&quot; method to Shikashi::Privilege class, this
+methods must be invoqued to the privileges passed to the main sandbox in
+order to allow the creation and execution of nested sandboxes from within
+the main sandbox.
+</p>
+<p>
+The code executed in the nested sandbox has the restrictions defined with
+the privileges API added to the restrictions defined to the container
+sandbox (i.e. the code executed in main sandbox can&#8216;t give permission
+to execute the system method if it has no permissions to do that)
+</p>
+<p>
+In brief:
+</p>
+<ul>
+<li>The container sandbox can give permissions to execute methods defined in
+the same sandbox
+
+</li>
+<li>The container sandbox can give permissions to execute methods defined
+outside the sandbox if it has
+
+</li>
+</ul>
+<p>
+the same permissions too
+</p>
+<ul>
+<li>Any sandbox can call any method defined in the same code without specific
+permisions
+
+</li>
+</ul>
+<h3>Example</h3>
+<pre>
+        require &quot;rubygems&quot;
+        require &quot;shikashi&quot;
+        require &quot;shikashi-shikashi&quot;
+
+        include Shikashi
+
+        class X
+                def foo
+                        print &quot;external foo\n&quot;
+                end
+        end
+
+        sandbox = Sandbox.new
+        privileges = Privileges.new
+
+        privileges.allow_shikashi
+
+        privileges.object(self).allow :print
+        privileges.object(X).allow :new
+        privileges.instances_of(X).allow :foo
+
+        # for the recue
+        privileges.allow_method :===
+
+        sandbox.run &quot;
+                x = X.new
+                x.foo
+
+                sandbox = Sandbox.new
+                privileges = Privileges.new
+                privileges.allow_method :print
+
+                sandbox.run privileges, 'print \&quot;hello world\\n\&quot;'
+
+                begin
+                        sandbox.run privileges, 'X.new.foo' # disallowed
+                rescue SecurityError
+                        print \&quot;security error\\n\&quot;
+                end
+
+        &quot;, privileges
+</pre>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
