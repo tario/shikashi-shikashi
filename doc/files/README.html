@@ -56,7 +56,7 @@
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Sat Jun 19 23:34:35 -0300 2010</td>
+      <td>Sun Jun 20 10:31:28 -0300 2010</td>
     </tr>
     </table>
   </div>
@@ -108,10 +108,11 @@ href="http://tario.github.com/shikashi-shikashi/doc">tario.github.com/shikashi-s
 <h2>Usage</h2>
 <p>
 It&#8216;s very simple, shikashi-shikashi adds an
-&quot;allow_shikashi&quot; method to Shikashi::Privilege class, this
-methods must be invoqued to the privileges passed to the main sandbox in
-order to allow the creation and execution of nested sandboxes from within
-the main sandbox.
+&quot;allow_shikashi&quot; method to <a
+href="../classes/Shikashi/Privileges.html">Shikashi::Privileges</a> class,
+this methods must be invoqued to the privileges passed to the main sandbox
+in order to allow the creation and execution of nested sandboxes from
+within the main sandbox.
 </p>
 <p>
 The code executed in the nested sandbox has the restrictions defined with
@@ -128,14 +129,9 @@ the same sandbox
 
 </li>
 <li>The container sandbox can give permissions to execute methods defined
-outside the sandbox if it has
+outside the sandbox if it has the same permissions too
 
 </li>
-</ul>
-<p>
-the same permissions too
-</p>
-<ul>
 <li>Any sandbox can call any method defined in the same code without specific
 permisions
 
