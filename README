@@ -25,7 +25,7 @@ http://tario.github.com/shikashi-shikashi/doc/
 
 == Usage
 
-It's very simple, shikashi-shikashi adds an "allow_shikashi" method to Shikashi::Privilege class, this methods must
+It's very simple, shikashi-shikashi adds an "allow_shikashi" method to Shikashi::Privileges class, this methods must
 be invoqued to the privileges passed to the main sandbox in order to allow the creation and execution of nested
 sandboxes from within the main sandbox.
 
@@ -36,9 +36,8 @@ system method if it has no permissions to do that)
 In brief:
 
 * The container sandbox can give permissions to execute methods defined in the same sandbox
-* The container sandbox can give permissions to execute methods defined outside the sandbox if it has
-the same permissions too
-* Any sandbox can call any method defined in the same code without specific permisions
+* The container sandbox can give permissions to execute methods defined outside the sandbox if it has the same permissions too
+* Any sandbox can call any method defined in the same code without specific permissions
 
 === Example
 
